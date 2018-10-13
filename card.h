@@ -16,22 +16,24 @@ class card
 public:
 
 	// Constructors
-	card(const int value, const std::string suit)
-		: value(value), suit(suit) {}
+	card(const int& value, const std::string& suit)
+		: value(value), suit(suit)
+	{}
 
-   // Copy Constructor
-   card(const card& copiedCard)
-      : value(copiedCard.value), suit(copiedCard.suit) {}
+	// Copy Constructor
+	card(const card& templateCard)
+		: value(templateCard.value), suit(templateCard.suit)
+	{}
 
 	// Getters and Setters
 	int getValue() const { return value; }
 	void setValue(const int& value) { this->value = value; }
 
-   std::string getSuit() const { return suit; }
+	std::string getSuit() const { return suit; }
 	void setSuit(const std::string& suit) { this->suit = suit; }
 
-   // Overloaded assignment operator
-   card& operator= (const card& rhsCard);
+	// Overloaded assignment operator
+	card& operator= (const card& rhsCard);
 
 	// Overloaded operators
 	friend std::ostream& operator <<(std::ostream& out, const card& card);
@@ -45,6 +47,6 @@ private:
 
 	// Suit of the card
 	// Club, Diamond, Heart, Spade
-   std::string suit;
+	std::string suit;
 
 };

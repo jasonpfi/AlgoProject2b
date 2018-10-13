@@ -24,6 +24,9 @@ public:
 	// Public methods
 	void shuffle();
 	card deal();
+	card getCardValue(const int& index) const;
+	void addCard(const card& card);
+	void replace(const card& card);
 
 	// Overloaded operators
 	friend std::ostream& operator <<(std::ostream& out, const deck& deck);
@@ -34,9 +37,7 @@ private:
 	node<card> *first = NULL;
 
 	// Private methods
-	void addCard(const card& card);
 	node<card>* pop();
-	void replace(const card& card);
 
 	static node<card>* insertAt(node<card> *list, const int index, node<card> *newCard);
 };

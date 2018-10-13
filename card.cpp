@@ -5,8 +5,7 @@
  *
  * card.cpp: The cpp file for the card class. Since all member methods were
  *           defined inline, this file only contains the implementation for
- *           the friend operator overload function to output the value and suit
- *           of the card
+ *           the operator overload functions.
  */
 
 #include "card.h"
@@ -19,6 +18,7 @@ std::ostream& operator << (std::ostream& out, const card& card)
 }
 
 card& card::operator= (const card& rhsCard)
+// Overloaded assignment operator
 {
    this->value = rhsCard.value;
    this->suit  = rhsCard.suit;

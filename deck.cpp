@@ -31,11 +31,13 @@ deck::deck()
 }
 
 deck::~deck()
-// poplocates memory by deleting each card in deck
+// deallocates memory by deleting each card in deck
 {
 	while (this->first != NULL)
 	{
-		delete pop();
+		auto top(this->first);
+		this->first = top->next;
+		delete top;
 	}
 }
 
@@ -60,10 +62,17 @@ void deck::shuffle()
 node<card>* deck::pop()
 // Removes the top card from the deck and returns the pointer to it
 {
-	node<card> *top = this->first;
-	this->first = top->next;
-	top->next = NULL;
-	return top;
+	if (this->first != NULL)
+	{
+		node<card> *top = this->first;
+		this->first = top->next;
+		top->next = NULL;
+		return top;
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 card deck::deal()
@@ -73,6 +82,16 @@ card deck::deal()
 	auto c = top->nodeValue;
 	delete top;
 	return c;
+}
+
+card deck::getCardValue(const int& index) const
+{
+	node<card>* curr = this->first;
+	for (int i(0); i < index && curr != NULL; i++)
+	{
+		curr = curr->next;
+	}
+	return curr->nodeValue;
 }
 
 std::ostream& operator <<(std::ostream& out, const deck& deck)
