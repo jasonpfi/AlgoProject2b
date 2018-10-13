@@ -23,7 +23,6 @@ public:
 
    // Public methods
 	void shuffle();
-	card deal();
 
 	// Overloaded operators
 	friend std::ostream& operator <<(std::ostream& out, const deck& deck);
@@ -35,7 +34,7 @@ private:
 
 	// Private methods
 	void addCard(const card& card);
-	node<card>* pop();
+	node<card>* deal();
 
 	static node<card>* insertAt(node<card> *list, const int index, node<card> *newCard);
 };
