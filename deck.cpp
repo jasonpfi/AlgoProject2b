@@ -89,6 +89,27 @@ void deck::addCard(const card& newCard)
 	this->first = new node<card>(newCard, this->first);
 }
 
+void deck::replace(const card& card)
+{
+   node<card>* newNode(card);
+
+   node<card>* curr = this->first;
+
+   if (curr != NULL)
+   {
+      while(curr->next != NULL)
+      {
+         curr = curr->next;
+      }
+      curr->next = newNode;
+   }
+   else
+   {
+      this->first = newNode;
+   }
+
+}
+
 node<card>* deck::insertAt(node<card>* list, const int index,
                            node<card>* newCard)
 // Takes the card in the argument and inserts it into the passed linked list

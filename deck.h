@@ -35,6 +35,7 @@ private:
 	// Private methods
 	void addCard(const card& card);
 	node<card>* deal();
+   void replace(const card& card);
 
 	static node<card>* insertAt(node<card> *list, const int index, node<card> *newCard);
 };
