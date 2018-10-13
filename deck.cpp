@@ -35,7 +35,7 @@ deck::~deck()
 {
 	while (this->first != NULL)
 	{
-		delete pop();
+		delete deal();
 	}
 }
 
@@ -50,14 +50,14 @@ void deck::shuffle()
 	while (this->first != NULL)
 	{
 		length++;
-		node<card>* top = pop();
+		node<card>* top = deal();
 		head = insertAt(head, rand() % length, top);
 	}
 
 	this->first = head;
 }
 
-node<card>* deck::pop()
+node<card>* deck::deal()
 // Removes the top card from the deck and returns the pointer to it
 {
 	node<card> *top = this->first;
