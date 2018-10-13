@@ -18,3 +18,10 @@ std::ostream& operator << (std::ostream& out, const card& card)
           card.value << std::endl;
 }
 
+card& card::operator= (const card& rhsCard)
+{
+   this->value = rhsCard.value;
+   this->suit  = rhsCard.suit;
+   return *this;
+}
+
