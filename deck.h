@@ -27,6 +27,8 @@ public:
 	// Overloaded operators
 	friend std::ostream& operator <<(std::ostream& out, const deck& deck);
 
+   friend void playFlip();
+
 private:
 
    // Private data member
@@ -37,5 +39,6 @@ private:
 	node<card>* deal();
    void replace(const card& card);
 
-	static node<card>* insertAt(node<card> *list, const int index, node<card> *newCard);
+	static node<card>* insertAt(node<card> *list, const int index,
+         node<card> *newCard);
 };
