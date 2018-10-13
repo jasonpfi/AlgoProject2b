@@ -24,4 +24,3 @@ card& card::operator= (const card& rhsCard)
    this->suit  = rhsCard.suit;
    return *this;
 }
-
