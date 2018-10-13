@@ -99,6 +99,8 @@ void deck::addCard(const card& newCard)
 }
 
 void deck::replace(const card& c)
+// Inserts a card at the bottom of the deck
+// c: new card to insert
 {
 	node<card>* newNode = new node<card>(c);
 
