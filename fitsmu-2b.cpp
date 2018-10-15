@@ -5,74 +5,9 @@
 #include "deck.h"
 #include <vector>
 
-// Friend of Deck / Global method to play the game
-//int playFlip2()
-//{
-//   // Current player's points; the full deck; vector of already flipped cards;
-//   // Card chosen to be flipped
-//   int points = 0;
-//   deck fullDeck = deck();
-//   std::vector<int> flippedCards;
-//   int chosenCard;
-//
-//   // Shuffle full deck 3 times
-//   for (int i = 0; i < 3; i++)
-//   {
-//      fullDeck.shuffle();
-//   }
-//
-//   // The player's current hand; instantiate with first card from the deck
-//   deck currentHand = deck(fullDeck.deal());
-//
-//   // Add an additional 23 cards from the deck to the player's hand
-//   // Place added cards at the back of the player's hand
-//   for (int i = 0; i < 23; i++)
-//   {
-//      currentHand.replace(fullDeck.deal());
-//   }
-//
-//   do
-//   {
-//      do
-//      {
-//         std::cout << "Pick a card to flip: ";
-//         std::cin  >> chosenCard;
-//      } while (chosenCard > 24)
-//
-//      // Make sure this card has not been chosen before
-//      for (int i = 0; i < flippedCards.size(); i++)
-//      {
-//         if (flippedCards.at(i) == chosenCard)
-//         {
-//            std::cout << "You've already chosen this card!\n";
-//            std::cout << "Pick another card: ";
-//            std::cin  >> chosenCard;
-//
-//            // Restart the loop for new input
-//            i = 0;
-//         }
-//      }
-//      if (chosenCard != 0)
-//      {
-//         node<card>* curr = currentHand.first;
-//
-//         for (int i = 0; i < chosenCard; i++)
-//         {
-//            curr = curr->next;
-//         }
-//
-//         std::cout << curr->value << ", " << curr->suit;
-//         flippedCards.push_back(chosenCard);
-//      }
-//   } while (chosenCard != 0)
-//
-//   std::cout << "You've ended the game!";
-//   return 0;
-//}
-
 // Global methods needed to play game
 void playFlip();
-int newScore(const int& prevScore, const card& selection);
+void newScore(int& prevScore, const card& selection);
 bool cardsRemain(const std::vector<bool>& status);
 card selectCard(std::vector<bool>& status, const deck& playerDeck);
 bool stop();
@@ -92,7 +27,7 @@ void playFlip()
 // Plays the flip game
 {
 	// Welcome to game
-	std::cout << "Welcome to Flip" << std::endl;
+	std::cout << "Welcome to Flip!" << std::endl;
 
 	// Generate cards and shuffle 3 times
 	deck mainDeck;
@@ -104,37 +39,45 @@ void playFlip()
 	}
 
 	// create a player deck with 24 cards
-	deck playerDeck(NULL);
+	deck playerDeck;
 	for (int i = 0; i < 25; i++)
    {
 		playerDeck.replace(mainDeck.deal());
    }
 
+   // Print out top 24 cards and remaining deck
+   std::cout << "Top 24 Cards: " << playerDeck << "Remaining Cards: "
+             << mainDeck;
+
 	int score(0);
 	std::vector<bool> selectedCards = std::vector<bool>(24, false);
-	while (cardsRemain(selectedCards))
+
+   // Loop depends on if there are cards that haven't been chosen, and if
+   //  the player still wants to play
+   while (cardsRemain(selectedCards) && !stop())
 	{
-		std::cout << "Current score: " << score << std::endl;
-		std::cout << "Current hand: " << std::endl;
-		std::cout << playerDeck;
-
-		if (stop())
-			break;
-
 		// select a card from the 24
 		card selected = selectCard(selectedCards, playerDeck);
 		std::cout << "You selected:" << std::endl << selected;
-		playerDeck.replace(selected);
+
+      // Put the card at the end of the player's hand
+      playerDeck.replace(selected);
 
 		// update score
-		score = newScore(score, selected);
-	}
+		newScore(score, selected);
+
+      // Print player's hand and the score
+      std::cout << "Current score: " << score << std::endl;
+		std::cout << "Current hand: " << std::endl;
+		std::cout << playerDeck;
+	} // End While
 
 	std::cout << "Final Score: " << score << std::endl
 		<< "Thanks for Playing." << std::endl;
-}
+} // End PlayFlip()
 
 bool stop()
+// Determines if the player wants to stop playing
 {
 	std::string input;
 	while (true)
@@ -156,14 +99,17 @@ bool stop()
 			std::cout << "Sorry, I didn't quite catch that. I'll ask again."
             << std::endl;
 		}
-	}
-}
+	} // End While
+} // End Stop
 
-int newScore(const int& prevScore, const card& selection)
+void newScore(int& score, const card& selection)
+// Determines player's new score depending on previous score and input
+//
+// prevScore: integer representing the players current score
+// selection: the card that has been selected
 {
 	int v = selection.getValue();
 	std::string s = selection.getSuit();
-	int score = prevScore;
 
 	if (v == 1) // A
 	{
@@ -183,20 +129,28 @@ int newScore(const int& prevScore, const card& selection)
 	}
 	// No effect for 8, 9, 10
 
+   // Increment Score by 1 for heart
 	if (s == "Heart") score++; // Heart
-
-	return score;
-}
+} // End newScore
 
 bool cardsRemain(const std::vector<bool>& status)
+// Checks if cards remain in the deck by examining the status vector
+//
+// status: Vector of booleans, where true means the card of the hand at that
+//          index has already been picked
 {
-	for (int i(0); i < status.size(); i++)
+	for (int i = 0; i < status.size(); i++)
 		if (status.at(i) == false) return true;
 
 	return false;
 }
 
 card selectCard(std::vector<bool>& status, const deck& playerDeck)
+// Selects a card from the player's hand if that card has not already been
+//  chosen
+//
+// status: Vector of booleans, where true means the card of the hand at that
+//          index has already been picked
 {
 	while (true)
 	{
@@ -217,5 +171,5 @@ card selectCard(std::vector<bool>& status, const deck& playerDeck)
 			status.at(number - 1) = true;
 			return playerDeck.getCardValue(number - 1);
 		}
-	}
-}
+	} // End While
+} // End SelectCard()
