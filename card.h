@@ -15,7 +15,7 @@ class card
 
 public:
 
-	// Constructors
+	// Basic Constructor
 	card(const int& value, const std::string& suit)
 		: value(value), suit(suit)
 	{}

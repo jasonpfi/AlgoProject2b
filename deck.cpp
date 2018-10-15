@@ -28,7 +28,7 @@ deck::deck()
 			addCard(card(j, suits[i]));
 		}
 	}
-}
+} // End deck()
 
 deck::~deck()
 // deallocates memory by deleting each card in deck
@@ -57,7 +57,7 @@ void deck::shuffle()
 	}
 
 	this->first = head;
-}
+} // End Shuffle
 
 node<card>* deck::pop()
 // Removes the top card from the deck and returns the pointer to it
@@ -73,7 +73,7 @@ node<card>* deck::pop()
 	{
 		return NULL;
 	}
-}
+} // End pop()
 
 card deck::deal()
 // Public method that retuns the top card off the deck
@@ -85,9 +85,12 @@ card deck::deal()
 }
 
 card deck::getCardValue(const int& index) const
+// Returns the value of the card at the index
+//
+// index: index of card to examine
 {
 	node<card>* curr = this->first;
-	for (int i(0); i < index && curr != NULL; i++)
+	for (int i = 0; i < index && curr != NULL; i++)
 	{
 		curr = curr->next;
 	}
@@ -138,7 +141,7 @@ void deck::replace(const card& c)
 		this->first = newNode;
 	}
 
-}
+} // End Replace
 
 node<card>* deck::insertAt(node<card>* list, const int index,
 	node<card>* newCard)
@@ -159,10 +162,6 @@ node<card>* deck::insertAt(node<card>* list, const int index,
 			prev = curr;
 			curr = curr->next;
 		}
-		else
-		{
-			//throw new std::exception("Index out of bounds exception");
-		}
 	}
 
 	if (prev != NULL)
@@ -172,4 +171,4 @@ node<card>* deck::insertAt(node<card>* list, const int index,
 	newCard->next = curr;
 
 	return prev == NULL ? newCard : list;
-}
+} // End InsertAt()

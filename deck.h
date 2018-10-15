@@ -4,8 +4,7 @@
  * Sam Smucny
  *
  * deck.h: header file for deck class.
- *		Contains a collection of cards and
- *		methods to manipulate them.
+ *		Contains a collection of cards and methods to manipulate them.
  */
 
 #include <iostream>
@@ -14,6 +13,7 @@
 
 class deck
 {
+
 public:
 
 	// Constructors & Destructors
@@ -38,7 +38,6 @@ private:
 
 	// Private methods
 	node<card>* pop();
-
 	static node<card>* insertAt(node<card> *list, const int index,
 		node<card> *newCard);
 };

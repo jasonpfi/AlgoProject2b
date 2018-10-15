@@ -70,6 +70,7 @@
 //   return 0;
 //}
 
+// Global methods needed to play game
 void playFlip();
 int newScore(const int& prevScore, const card& selection);
 bool cardsRemain(const std::vector<bool>& status);
@@ -77,6 +78,7 @@ card selectCard(std::vector<bool>& status, const deck& playerDeck);
 bool stop();
 
 int main()
+// Main method, entry point of execution
 {
 	srand(time(NULL));
 
@@ -87,6 +89,7 @@ int main()
 }
 
 void playFlip()
+// Plays the flip game
 {
 	// Welcome to game
 	std::cout << "Welcome to Flip" << std::endl;
@@ -103,20 +106,18 @@ void playFlip()
 	// create a player deck with 24 cards
 	deck playerDeck(NULL);
 	for (int i = 0; i < 25; i++)
+   {
 		playerDeck.replace(mainDeck.deal());
-
-
+   }
 
 	int score(0);
 	std::vector<bool> selectedCards = std::vector<bool>(24, false);
-	deck playerHand(NULL);
 	while (cardsRemain(selectedCards))
 	{
 		std::cout << "Current score: " << score << std::endl;
 		std::cout << "Current hand: " << std::endl;
-		std::cout << playerHand;
+		std::cout << playerDeck;
 
-		// ask if player wants to continue
 		if (stop())
 			break;
 
@@ -152,7 +153,8 @@ bool stop()
 		}
 		else
 		{
-			std::cout << "Sorry, I didn't quite catch that. I'll ask again." << std::endl;
+			std::cout << "Sorry, I didn't quite catch that. I'll ask again."
+            << std::endl;
 		}
 	}
 }
