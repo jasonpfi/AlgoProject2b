@@ -3,7 +3,6 @@
 #include <time.h>
 #include <vector>
 #include "deck.h"
-#include <vector>
 
 // Global methods needed to play game
 void playFlip();
@@ -39,37 +38,36 @@ void playFlip()
 	}
 
 	// create a player deck with 24 cards
-	deck playerDeck;
-	for (int i = 0; i < 25; i++)
-   {
+	deck playerDeck(NULL);
+	for (int i = 1; i <= 24; i++)
+	{
 		playerDeck.replace(mainDeck.deal());
-   }
+	}
 
-   // Print out top 24 cards and remaining deck
-   std::cout << "Top 24 Cards: " << playerDeck << "Remaining Cards: "
-             << mainDeck;
+	// Print out top 24 cards and remaining deck
+	std::cout << "Top 24 Cards: \n" << playerDeck
+		<< "Remaining Cards: \n"
+		<< mainDeck;
 
 	int score(0);
 	std::vector<bool> selectedCards = std::vector<bool>(24, false);
 
-   // Loop depends on if there are cards that haven't been chosen, and if
-   //  the player still wants to play
-   while (cardsRemain(selectedCards) && !stop())
+	// Loop depends on if there are cards that haven't been chosen, and if
+	//  the player still wants to play
+	while (cardsRemain(selectedCards) && !stop())
 	{
 		// select a card from the 24
 		card selected = selectCard(selectedCards, playerDeck);
-		std::cout << "You selected:" << std::endl << selected;
-
-      // Put the card at the end of the player's hand
-      playerDeck.replace(selected);
 
 		// update score
 		newScore(score, selected);
 
-      // Print player's hand and the score
-      std::cout << "Current score: " << score << std::endl;
+		// Print player's hand and the score
 		std::cout << "Current hand: " << std::endl;
-		std::cout << playerDeck;
+		std::cout << playerDeck << std::endl;
+		std::cout << "You selected: " << selected << std::endl;
+		std::cout << "Current score: " << score << std::endl;
+
 	} // End While
 
 	std::cout << "Final Score: " << score << std::endl
@@ -97,7 +95,7 @@ bool stop()
 		else
 		{
 			std::cout << "Sorry, I didn't quite catch that. I'll ask again."
-            << std::endl;
+				<< std::endl;
 		}
 	} // End While
 } // End Stop

@@ -143,7 +143,7 @@ void deck::replace(const card& c)
 
 } // End Replace
 
-node<card>* deck::insertAt(node<card>* list, const int index,
+node<card>* deck::insertAt(node<card>* list, const int& index,
 	node<card>* newCard)
 	// Takes the card in the argument and inserts it into the passed linked list
 	//  of cards. Returns the new list.

@@ -38,6 +38,6 @@ private:
 
 	// Private methods
 	node<card>* pop();
-	static node<card>* insertAt(node<card> *list, const int index,
+	static node<card>* insertAt(node<card> *list, const int& index,
 		node<card> *newCard);
 };
