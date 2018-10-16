@@ -150,7 +150,8 @@ node<card>* deck::insertAt(node<card>* list, const int& index,
 	//
 	//  list: The linked list of cards to be added to
 	//  index: the index at which to insert the card in the linked list
-	//  newCard: the card object to be added to the linked list at the given index
+	//  newCard: the card object to be added to the linked list at the given
+   //           index
 {
 	node<card> *curr = list;
 	node<card> *prev = NULL;
